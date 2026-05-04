@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connect 4 - Lobby</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="lobby-container">
+        <h1>CONNECT 4</h1>
+        <p>Welcome, <span id="playerNameDisplay"></span>!</p>
+        <button onclick="createGame()">CREATE NEW GAME</button>
+        <div class="join-area">
+            <input type="text" id="gameCode" placeholder="Enter game code">
+            <button onclick="joinGame()">JOIN GAME</button>
+        </div>
+        <div id="info"></div>
+    </div>
+
+    <script>
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) window.location.href = 'index.html';
+        document.getElementById('playerNameDisplay').innerText = user.name;
+
+        async function api(url, data) {
+            const res = await fetch("../backend/" + url, {
+                method: data ? "POST" : "GET",
+                body: data ? JSON.stringify(data) : null
+            });
+            return res.json();
+        }
+
+        async function createGame() {
+            const result = await api("create_game.php", { player_name: user.name });
+            if (result.status === "ok") {
+                document.getElementById('info').innerHTML = `
+                    <div class="code-box">
+                        <p>Share this code with your friend:</p>
+                        <div class="big-code">${result.game_code}</div>
+                        <button onclick="startGame(${result.game_id}, '${result.game_code}')">START GAME</button>
+                    </div>
+                `;
+                waitForPlayer(result.game_id);
+            }
+        }
+
+        async function joinGame() {
+            const code = document.getElementById('gameCode').value.toUpperCase();
+            if (!code) return;
+            const result = await api("join_game.php", { game_code: code, player_name: user.name });
+            if (result.status === "ok") {
+                startGame(result.game_id, code);
+            } else {
+                document.getElementById('info').innerHTML = '!! Game not found';
+            }
+        }
+
+        function startGame(gameId, gameCode) {
+            window.location.href = `game.html?id=${gameId}&code=${gameCode}`;
+        }
+
+        async function waitForPlayer(gameId) {
+            const interval = setInterval(async () => {
+                const state = await api(`get_game_state.php?id=${gameId}`);
+                if (state && state.player2_name) {
+                    clearInterval(interval);
+                    startGame(gameId, state.game_code);
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+
+</html>

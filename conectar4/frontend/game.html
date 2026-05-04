@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connect 4 - Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <h1>CONNECT 4</h1>
+        <div class="game-code" id="gameCodeDisplay"></div>
+        <div class="turn-indicator" id="turnIndicator">Waiting...</div>
+        <div class="players">
+            <div class="player-card" id="player1Card">🔴 <span id="player1Name">Player 1</span></div>
+            <div class="player-card" id="player2Card">🟡 <span id="player2Name">Player 2</span></div>
+        </div>
+        <div id="board"></div>
+        <div id="winnerMessage"></div>
+        <button onclick="backToLobby()" class="back-btn">← Back to Lobby</button>
+    </div>
+    <script src="game.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%);
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-container,
+.lobby-container,
+.game-container {
+    background: linear-gradient(135deg, #2a1a4e, #1a0a3e);
+    border: 3px solid #ffd700;
+    border-radius: 32px;
+    padding: 40px;
+    text-align: center;
+    min-width: 350px;
+}
+
+h1 {
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #ffd700;
+    border-radius: 50px;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: linear-gradient(135deg, #ffd700, #ffaa00);
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.join-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.join-area input {
+    flex: 1;
+    margin: 0;
+}
+
+.join-area button {
+    width: auto;
+    padding: 12px 20px;
+}
+
+.code-box {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+}
+
+.big-code {
+    font-size: 32px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    color: #ffd700;
+    margin: 15px 0;
+}
+
+.game-code {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 8px 16px;
+    border-radius: 30px;
+    color: #ffd700;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.turn-indicator {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.players {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 20px;
+}
+
+.player-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 24px;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.cell {
+    aspect-ratio: 1;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    transition: all 0.2s;
+}
+
+.cell:hover {
+    transform: scale(1.03);
+    background: rgba(255, 215, 0, 0.15);
+}
+
+.winner-banner {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.winner-banner.win {
+    background: linear-gradient(135deg, #4CAF50, #2e7d32);
+    color: white;
+}
+
+.winner-banner.lose {
+    background: linear-gradient(135deg, #ff4444, #cc0000);
+    color: white;
+}
+
+.back-btn {
+    margin-top: 20px;
+    width: auto;
+    padding: 10px 25px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #ffd700;
+}

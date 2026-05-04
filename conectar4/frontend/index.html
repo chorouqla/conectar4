@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Connect 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <h1>CONNECT 4</h1>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="register()">REGISTER</button>
+        <button onclick="login()" class="primary">LOGIN</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        async function api(url, data) {
+            const res = await fetch("../backend/" + url, {
+                method: data ? "POST" : "GET",
+                body: data ? JSON.stringify(data) : null
+            });
+            return res.json();
+        }
+
+        async function register() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const result = await api("register.php", { username, password });
+            if (result.status === "ok") {
+                document.getElementById('message').innerText = 'Registered! Now login.';
+            } else {
+                document.getElementById('message').innerText = 'Error';
+            }
+        }
+
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const result = await api("login.php", { username, password });
+            if (result.status === "ok") {
+                localStorage.setItem('user', JSON.stringify({ id: result.id, name: result.username }));
+                window.location.href = 'lobby.html';
+            } else {
+                document.getElementById('message').innerText = 'Wrong password';
+            }
+        }
+    </script>
+</body>
+
+</html>
